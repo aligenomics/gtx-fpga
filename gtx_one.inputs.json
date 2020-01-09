@@ -4,14 +4,14 @@
     "gtx_one.reads_group": "'@RG\tID:foo\tSM:bar'",
     "gtx_one.sample_id": "example",
     "gtx_one.genome_indexes": [
-        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta",
-        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.amb",
-        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.ann",
-        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.bwt",
-        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.fai",
-        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.pac",
-        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.sa",
-        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.tbl"
+        "oss://gtx-fpga/hg19/Homo_sapiens_assembly19.fasta",
+        "oss://gtx-fpga/hg19/Homo_sapiens_assembly19.fasta.amb",
+        "oss://gtx-fpga/hg19/Homo_sapiens_assembly19.fasta.ann",
+        "oss://gtx-fpga/hg19/Homo_sapiens_assembly19.fasta.bwt",
+        "oss://gtx-fpga/hg19/Homo_sapiens_assembly19.fasta.fai",
+        "oss://gtx-fpga/hg19/Homo_sapiens_assembly19.fasta.pac",
+        "oss://gtx-fpga/hg19/Homo_sapiens_assembly19.fasta.sa",
+        "oss://gtx-fpga/hg19/Homo_sapiens_assembly19.fasta.tbl"
     ],
     "gtx_one.is_identify_with_bwa": false,
     "gtx_one.is_output_bam": false,
