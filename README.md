@@ -8,7 +8,9 @@ GTX-FPGA产品是由[未来实验室 GTX-Laboratory](http://www.genetalks.com/)�
 ## 前置条件
 - 登录[阿里云](https://homenew.console.aliyun.com/)，并确保账号余额大于100元，以便体验完整分析流程。
 - 开通[批量计算服务](https://batchcompute.console.aliyun.com/)，用于执行分析任务。
-- 开通[OSS对象存储](http://oss.console.aliyun.com/), 用于上传用户自己的测序数据。 **（可选）** 
+- 开通[OSS对象存储](http://oss.console.aliyun.com/), 用于上传用户自己的测序数据，保存分析结果。
+- 创建并保存当前用户的[AccessKey](https://usercenter.console.aliyun.com/), 如果您使用的是**子账号**，请确认具有以上批量计算和OSS的产品
+使用权限
 
 ## 使用说明
 演示的GTX-FPGA分析应用，是由[WDL](http://www.openwdl.org/)流程语言组织编写, 并通过[Cromwell引擎](https://cromwell.readthedocs.io/en/develop/)进行执行。我们将通过使用阿里云云市场的镜像，创建一个云服务器，来帮你快速创建这一套工作环境。
@@ -21,7 +23,7 @@ GTX-FPGA产品是由[未来实验室 GTX-Laboratory](http://www.genetalks.com/)�
 
 
 ### 1. 创建Cromwell Server
-使用云市场镜像，[购买和创建](https://ecs-buy.aliyun.com/) 一台虚拟机，作为Cromwell Server
+使用云市场镜像，[购买和创建](https://ecs-buy.aliyun.com/) 一台虚拟机，作为用户的Cromwell Server环境。选择具体参数时，可以参考以下配置：
 <pre>
 配置信息
 计费方式：	按量付费
@@ -37,3 +39,37 @@ GTX-FPGA产品是由[未来实验室 GTX-Laboratory](http://www.genetalks.com/)�
 VPC：	vpc-2ze3***************
 交换机：	vsw-2ze***************
 </pre>
+
+> 注意：您可以选择**按量付费**模式，在测试结束后，即可关闭机器，不再产生费用。镜像选择**镜像市场**, 机器网络请选择**分配公网IPv4地址**，带宽选择按流量付费。
+
+![png](https://img.alicdn.com/tfs/TB1fcYdtAT2gK0jSZFkXXcIQFXa-2878-1412.png)
+
+### 2. 登录Cromwell Server，完成初始化设置并且启动服务
+- 使用步骤1中创建的ECS服务器IP地址，用户名和密码，登录机器
+<code>
+$ssh root@182.92.206.xxx
+</code>
+
+- 运行目录下的**cromwell-server.sh**，进行Cromwell Server的管理
+<code>
+# ./cromwell-server.sh
+cromwell-server.sh - init cromwell config and start/stop service
+Usage: cromwell-server.sh [options...] [init/start/stop]
+Options:
+  --id=STRING           Access id
+  --key=STRING          Access key
+  --root=STRING         Oss root for cromwell, e.g: oss://my-bucket/cromwell/
+  --instance=STRING     default runtime: instance type [ecs.sn1.medium]
+  --image=STRING        default runtime: image id [img-ubuntu-vpc]
+</code>
+
+
+
+
+
+
+
+### 1. 创建Cromwell Server
+
+### 1. 创建Cromwell Server
+
