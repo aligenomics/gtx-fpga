@@ -88,15 +88,63 @@ checking cromwell server status.....
 
 #### 3.1 获取GTX-WGS分析流程
 <pre><code>
-git clone 
+# git clone https://github.com/aligenomics/gtx-fpga.git
+# cd gtx-fpga/
+# ll
+-rw-r--r-- 1 root root 4677 Jan  9 21:23 README.md
+-rw-r--r-- 1 root root  201 Jan  9 21:23 gtx_index.inputs.json
+-rw-r--r-- 1 root root  552 Jan  9 21:23 gtx_index.wdl
+-rw-r--r-- 1 root root 1036 Jan  9 21:23 gtx_index_align_vc.inputs.json
+-rw-r--r-- 1 root root 1904 Jan  9 21:23 gtx_index_align_vc.wdl
+-rw-r--r-- 1 root root 1029 Jan  9 21:23 gtx_one.inputs.json
+-rw-r--r-- 1 root root 1520 Jan  9 21:23 gtx_one.wdl
+drwxr-xr-x 2 root root 4096 Jan  9 21:23 tasks/
 </code></pre>
 
+项目文件中，**tasks/** 为GTX-FPGA产品提供的所有分析工具，**gtx_index gtx_index_align gtx_one** 为使用这些工具的演示流程：
+- **gtx_index**: 输入物种的参考基因组序列文件，建立索引信息
+- **gtx_index_align**: 输入物种的参考基因组序列文件，和样本的测序reads，完成从建立索引，序列比对，到变异检测的全过程，共3个独立步骤。
+- **gtx_one**: 输入包括索引信息的参考基因组文件，和样本的测序reads，单个步骤整合所有分析，完成从原始数据到变异结果的全过程。
 
+#### 3.2 启动全基因组分析
+对于任意WDL格式的分析流程，都包含3部分内容。以**gtx_one**为例：
+ 1) WDL格式的Workflow文件，如gtx_one.wdl, 包含流程的分析步骤
+ 2) WDL格式的Task文件，如gtx_one.wdl中引用的tasks/wgs.wdl，包含工具的定义，如输入，输出和参数，以及需要的资源信息
+ 3) Json格式的inputs文件，如gtx_one.inputs.json 
+> 注意：Task也可以直接在Workflow中定义，此时只有WDL和inputs.json 2个文件
 
+**重要提示**：项目中的演示流程，均已经提供直接Demo文件，**用户无需额外准备输入，即可以运行体验**。
 
+**重要提示**：WGS演示流程中，提供的参考基因组为**hg19**,或者**hg38**, 测序样本为**NA12878**标准品30x的测序数据。
 
+- 使用**widdler**投递分析任务
+<pre><code>
+## 本项目中Task定义和Workflow定义是分开的，所以需要先将Task目录打包成zip文件
+# zip -r tasks.zip tasks/
+## 运行分析任务
+# widdler run -t hg19_wgs_one gtx_one.wdl -d tasks.zip gtx_one.inputs.json
+No errors found in gtx_one.wdl
+Enabling the following additional workflow options:
+bcs_workflow_tag:hg19_wgs_one
+{
+    "status": "Submitted",
+    "id": "639b0f8a-f504-4768-b1ce-69f5fecd59c3"
+}
+</code></pre>
+其中"id":**"639b0f8a-f504-4768-b1ce-69f5fecd59c3"** 为分析任务的ID
 
-### 1. 创建Cromwell Server
+- 查看分析任务状态
+<pre><code>
+## 查看所有投递的分析任务
+# widdler query
+## 查看指定任务的运行情况
+# widdler describe 639b0f8a-f504-4768-b1ce-69f5fecd59c3
+## 了解指定任务的元数据，分析任务失败原因
+# widdler query -m 639b0f8a-f504-4768-b1ce-69f5fecd59c3
+# widdler explain 639b0f8a-f504-4768-b1ce-69f5fecd59c3
+</code></pre>
+
+### 4. 监控资源
 
 ### 1. 创建Cromwell Server
 
