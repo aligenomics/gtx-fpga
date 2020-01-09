@@ -1,0 +1,22 @@
+{
+    "gtx_one.fastq1": "oss://gtx-fpga/test-data/NA12878_30x/140127_D00360_0011_AHGV6ADXX_R1.fastq.gz",
+    "gtx_one.fastq2": "oss://gtx-fpga/test-data/NA12878_30x/140127_D00360_0011_AHGV6ADXX_R2.fastq.gz",
+    "gtx_one.reads_group": "'@RG\tID:foo\tSM:bar'",
+    "gtx_one.sample_id": "example",
+    "gtx_one.genome_indexes": [
+        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta",
+        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.amb",
+        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.ann",
+        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.bwt",
+        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.fai",
+        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.pac",
+        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.sa",
+        "oss://gtx-fpga/hg38/Homo_sapiens_assembly38.fasta.tbl"
+    ],
+    "gtx_one.is_identify_with_bwa": false,
+    "gtx_one.is_output_bam": false,
+    "gtx_one.is_gvcf": false,
+
+    "gtx_one.sys_disk_size": 200,
+    "gtx_one.data_disk_size": 500
+}

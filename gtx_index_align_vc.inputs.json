@@ -1,0 +1,18 @@
+{
+    "fastq2vcf_without_index.fastq1": "oss://broad-references/hg38/v0/Homo_sapiens_assembly38.fasta",
+    "fastq2vcf_without_index.fastq2": "oss://broad-references/hg38/v0/Homo_sapiens_assembly38.fasta",
+    "fastq2vcf_without_index.genome_fasta": "oss://broad-references/hg38/v0/Homo_sapiens_assembly38.fasta",
+    "fastq2vcf_without_index.intervals": null,
+    "fastq2vcf_without_index.reads_group": "'@RG\tID:foo\tSM:bar'",
+    "fastq2vcf_without_index.sample_id": "wgs_example",
+    "fastq2vcf_without_index.disable_bwa_index": false,
+    "fastq2vcf_without_index.is_identify_with_bwa": false,
+    "fastq2vcf_without_index.is_mark_duplicate": false,
+    "fastq2vcf_without_index.is_gvcf": false,
+    "fastq2vcf_without_index.index.sys_disk_size": 200,
+    "fastq2vcf_without_index.index.data_disk_size": 500,
+    "fastq2vcf_without_index.align.sys_disk_size": 200,
+    "fastq2vcf_without_index.align.data_disk_size": 500,
+    "fastq2vcf_without_index.vc.sys_disk_size": 200,
+    "fastq2vcf_without_index.vc.data_disk_size": 500
+}

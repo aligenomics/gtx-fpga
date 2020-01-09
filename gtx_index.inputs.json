@@ -1,0 +1,6 @@
+{
+    "gtx_index.genome_fasta": "oss://gtx-fpga/hg19/Homo_sapiens_assembly19.fasta",
+    "gtx_index.disable_bwa_index": false,
+    "gtx_index.sys_disk_size": 200,
+    "gtx_index.data_disk_size": 500
+}
