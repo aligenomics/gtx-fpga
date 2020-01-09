@@ -45,12 +45,12 @@ VPC：	vpc-2ze3***************
 ![png](https://img.alicdn.com/tfs/TB1fcYdtAT2gK0jSZFkXXcIQFXa-2878-1412.png)
 
 ### 2. 登录Cromwell Server，完成初始化设置并且启动服务
-- 使用步骤1中创建的ECS服务器IP地址，用户名和密码，登录机器。
+##### 使用步骤1中创建的ECS服务器IP地址，用户名和密码，登录机器。
 <pre><code>
 $ssh root@182.92.206.xxx
 </code></pre>
 
-- 成功登陆机器后，你可以运行目录下的**cromwell-server.sh**，进行Cromwell Server的管理
+##### 成功登陆机器后，你可以运行目录下的**cromwell-server.sh**，进行Cromwell Server的管理
 <pre><code>
 ./cromwell-server.sh
 cromwell-server.sh - init cromwell config and start/stop service
@@ -74,12 +74,15 @@ Options:
 <pre><code>
 # 停止服务
 ./cromwell-server.sh stop
+
 # 启动服务
 ./cromwell-server.sh stop
+
 # 检查服务状态
 ./cromwell-server.sh status
 checking cromwell server status.....
 {"cromwell":"48-613cea9-SNAP"} is running!
+
 </code></pre>
 
 
@@ -113,11 +116,9 @@ drwxr-xr-x 2 root root 4096 Jan  9 21:23 tasks/
  3) Json格式的inputs文件，如gtx_one.inputs.json 
 > 注意：Task也可以直接在Workflow中定义，此时只有WDL和inputs.json 2个文件
 
-**重要提示**：项目中的演示流程，均已经提供直接Demo文件，**用户无需额外准备输入，即可以运行体验**。
+**重要提示**：项目中的演示流程，均已经提供直接Demo文件，**用户无需额外准备输入，即可以运行体验**。WGS演示流程中，提供的参考基因组为**hg19**,或者**hg38**, 测序样本为**NA12878**标准品30x的测序数据。
 
-**重要提示**：WGS演示流程中，提供的参考基因组为**hg19**,或者**hg38**, 测序样本为**NA12878**标准品30x的测序数据。
-
-- 使用**widdler**投递分析任务
+##### 使用**widdler**投递分析任务
 <pre><code>
 ## 本项目中Task定义和Workflow定义是分开的，所以需要先将Task目录打包成zip文件
 # zip -r tasks.zip tasks/
@@ -133,18 +134,54 @@ bcs_workflow_tag:hg19_wgs_one
 </code></pre>
 其中"id":**"639b0f8a-f504-4768-b1ce-69f5fecd59c3"** 为分析任务的ID
 
-- 查看分析任务状态
+##### 查看分析任务状态
 <pre><code>
 ## 查看所有投递的分析任务
 # widdler query
+
 ## 查看指定任务的运行情况
 # widdler describe 639b0f8a-f504-4768-b1ce-69f5fecd59c3
+
 ## 了解指定任务的元数据，分析任务失败原因
 # widdler query -m 639b0f8a-f504-4768-b1ce-69f5fecd59c3
 # widdler explain 639b0f8a-f504-4768-b1ce-69f5fecd59c3
 </code></pre>
 
-### 4. 监控资源
+##### 查看分析结果
+对于分析完成的作业，你可以在**OSS**中查看，并下载文件结果。**建议使用** [Ossutils](https://help.aliyun.com/document_detail/50452.html)进行文件的操作。
+<pre><code>
+## 查询输出结果
+# widdler query -o 639b0f8a-f504-4768-b1ce-69f5fecd59c3
+[
+    {
+        "gtx_one.alignment": {
+            "right": "oss://gtx-wgs-demo/cromwell/gtx_one/hg19_wgs_one/7f3d59f0-e3f8-4f50-888b-6b5e846933b1/call-wgs/example.bam.bai",
+            "left": "oss://gtx-wgs-demo/cromwell/gtx_one/hg19_wgs_one/7f3d59f0-e3f8-4f50-888b-6b5e846933b1/call-wgs/example.bam"
+        },
+        "gtx_one.variants": "oss://gtx-wgs-demo/cromwell/gtx_one/hg19_wgs_one/7f3d59f0-e3f8-4f50-888b-6b5e846933b1/call-wgs/example.vcf"
+    }
+]
 
-### 1. 创建Cromwell Server
+## 下载OSS文件
+./ossutil64 cp oss://ali-genomics-scratch-beijing/new/gtx_one/hg19_wgs_one/7f3d59f0-e3f8-4f50-888b-6b5e846933b1/call-wgs/example.vcf .
+</code></pre>
+
+### 4. 资源监控和费用统计
+对于运行中或者是完成的分析任务，widdler提供对应的命令，帮助用户了解分析步骤的耗时，资源使用情况，以及最终产生的费用。
+<pre><code>
+## 查看分析流程执行情况和运行时间
+# widdler describe 639b0f8a-f504-4768-b1ce-69f5fecd59c3
+
+## 查看资源使用统计
+# widdler stat 639b0f8a-f504-4768-b1ce-69f5fecd59c3
+
+## 统计分析成本（账单信息滞后，需要一天后查看）
+# widdler billing 
+</code></pre>
+
+### 5. 环境清理
+在完成所有的测试工作后，如果您不要再保留环境，可以选择在[ECS控制台](https://ecs.console.aliyun.com/)释放该机器。并且在[OSS的控制台](https://oss.console.aliyun.com/)，删除创建的Bucket。这样该项目后续将不会再产生额外的费用。
+
+
+## GTX-WGS性能评估报告
 
