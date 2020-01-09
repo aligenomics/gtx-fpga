@@ -8,9 +8,9 @@ GTX-FPGA产品是由[未来实验室 GTX-Laboratory](http://www.genetalks.com/)�
 ## 前置条件
 - 登录[阿里云](https://homenew.console.aliyun.com/)，并确保账号余额大于100元，以便体验完整分析流程。
 - 开通[批量计算服务](https://batchcompute.console.aliyun.com/)，用于执行分析任务。
-- 开通[OSS对象存储](http://oss.console.aliyun.com/), 用于上传用户自己的测序数据，保存分析结果。
-- 创建并保存当前用户的[AccessKey](https://usercenter.console.aliyun.com/), 如果您使用的是**子账号**，请确认具有以上批量计算和OSS的产品
-使用权限
+- 开通[OSS对象存储](http://oss.console.aliyun.com/), 用于上传用户自己的测序数据，保存分析结果。创建bucket，例如 gtx-wgs-demo
+- 查看或者创建的[AccessKey](https://usercenter.console.aliyun.com/), 如果您使用的是**子账号**，请确认具有以上批量计算和OSS的产品
+使用权限.复制AccessKey ID（如LTAI8xxxxx), Access Key Secret(如vVGZVE8qUNjxxxxxxxx) 备用。
 
 ## 使用说明
 演示的GTX-FPGA分析应用，是由[WDL](http://www.openwdl.org/)流程语言组织编写, 并通过[Cromwell引擎](https://cromwell.readthedocs.io/en/develop/)进行执行。我们将通过使用阿里云云市场的镜像，创建一个云服务器，来帮你快速创建这一套工作环境。
@@ -45,14 +45,14 @@ VPC：	vpc-2ze3***************
 ![png](https://img.alicdn.com/tfs/TB1fcYdtAT2gK0jSZFkXXcIQFXa-2878-1412.png)
 
 ### 2. 登录Cromwell Server，完成初始化设置并且启动服务
-- 使用步骤1中创建的ECS服务器IP地址，用户名和密码，登录机器
-<code>
+- 使用步骤1中创建的ECS服务器IP地址，用户名和密码，登录机器。
+<pre><code>
 $ssh root@182.92.206.xxx
-</code>
+</code></pre>
 
-- 运行目录下的**cromwell-server.sh**，进行Cromwell Server的管理
-<code>
-# ./cromwell-server.sh
+- 成功登陆机器后，你可以运行目录下的**cromwell-server.sh**，进行Cromwell Server的管理
+<pre><code>
+./cromwell-server.sh
 cromwell-server.sh - init cromwell config and start/stop service
 Usage: cromwell-server.sh [options...] [init/start/stop]
 Options:
@@ -61,8 +61,35 @@ Options:
   --root=STRING         Oss root for cromwell, e.g: oss://my-bucket/cromwell/
   --instance=STRING     default runtime: instance type [ecs.sn1.medium]
   --image=STRING        default runtime: image id [img-ubuntu-vpc]
-</code>
+</code></pre>
 
+#### 2.1 初始化设置，并启动服务
+使用文档开头准备的用户AK信息和OSS bucket信息，运行以下命令进行初始化设置。成功完成后，服务会自动启动
+<pre><code>
+./cromwell-server.sh init --id=LTAI8xxxxx --key=vVGZVE8qUNjxxxxxxxx --root=oss://gtx-wgs-demo/cromwell/
+</code></pre>
+
+#### 2.2 管理Cromwell Server服务
+你可以使用**cromwell-server.sh**，来**启动**或者**停止** Cromwell Server服务
+<pre><code>
+# 停止服务
+./cromwell-server.sh stop
+# 启动服务
+./cromwell-server.sh stop
+# 检查服务状态
+./cromwell-server.sh status
+checking cromwell server status.....
+{"cromwell":"48-613cea9-SNAP"} is running!
+</code></pre>
+
+
+### 3. 使用widdler命令行工具，进行WGS样本的分析
+在成功启动Cromwell Server后，你只需要使用**widdler**命令来进行全基因数据分析的一系列操作。
+
+#### 3.1 获取GTX-WGS分析流程
+<pre><code>
+git clone 
+</code></pre>
 
 
 
