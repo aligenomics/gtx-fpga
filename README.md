@@ -52,7 +52,7 @@ $ssh root@182.92.206.xxx
 
 ##### 成功登陆机器后，你可以运行目录下的**cromwell-server.sh**，进行Cromwell Server的管理
 <pre><code>
-./cromwell-server.sh
+# ./cromwell-server.sh
 cromwell-server.sh - init cromwell config and start/stop service
 Usage: cromwell-server.sh [options...] [init/start/stop]
 Options:
@@ -66,20 +66,20 @@ Options:
 #### 2.1 初始化设置，并启动服务
 使用文档开头准备的用户AK信息和OSS bucket信息，运行以下命令进行初始化设置。成功完成后，服务会自动启动
 <pre><code>
-./cromwell-server.sh init --id=LTAI8xxxxx --key=vVGZVE8qUNjxxxxxxxx --root=oss://gtx-wgs-demo/cromwell/
+# ./cromwell-server.sh init --id=LTAI8xxxxx --key=vVGZVE8qUNjxxxxxxxx --root=oss://gtx-wgs-demo/cromwell/
 </code></pre>
 
 #### 2.2 管理Cromwell Server服务
 你可以使用**cromwell-server.sh**，来**启动**或者**停止** Cromwell Server服务
 <pre><code>
-# 停止服务
-./cromwell-server.sh stop
+## 停止服务
+# ./cromwell-server.sh stop
 
-# 启动服务
-./cromwell-server.sh stop
+## 启动服务
+# ./cromwell-server.sh stop
 
-# 检查服务状态
-./cromwell-server.sh status
+## 检查服务状态
+# ./cromwell-server.sh status
 checking cromwell server status.....
 {"cromwell":"48-613cea9-SNAP"} is running!
 
