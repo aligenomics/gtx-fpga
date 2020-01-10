@@ -182,6 +182,10 @@ bcs_workflow_tag:hg19_wgs_one
 ### 5. 环境清理
 在完成所有的测试工作后，如果您不要再保留环境，可以选择在[ECS控制台](https://ecs.console.aliyun.com/)释放该机器。并且在[OSS的控制台](https://oss.console.aliyun.com/)，删除创建的Bucket。这样该项目后续将不会再产生额外的费用。
 
+## 更多分析
+### 外显子数据数据分析
+
+### 用户自定义分析
 
 ## GTX-WGS性能评估报告
 
