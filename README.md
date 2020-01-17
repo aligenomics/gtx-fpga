@@ -238,6 +238,7 @@ GTX-FPGA支持两种运行模式，可以兼顾准确性和加速比的考虑。
  "gtx_one.is_identify_with_bwa": false,
 </code></pre>
 true: 精准模式，保持与GATK分析结果的一致性
+
 false: 加速模式，可以30分钟完成30x全基因数据分析。
 
 对于GTX-FPGA，我们使用30x NA12878标准品的数据进行准确性和分析速度的测试。数据下载链接（ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/140127_D00360_0011_AHGV6ADXX/Project_RM8398/ 
@@ -247,8 +248,6 @@ false: 加速模式，可以30分钟完成30x全基因数据分析。
 ![png](https://img.alicdn.com/tfs/TB1dbWlukY2gK0jSZFgXXc5OFXa-2136-806.png)
 
 
-
-
 #### 性能
-
+![png](https://img.alicdn.com/tfs/TB1mZamuoT1gK0jSZFrXXcNCXXa-1460-314.png)
 
