@@ -120,6 +120,7 @@ drwxr-xr-x 2 root root 4096 Jan  9 21:23 tasks/
 <pre><code>
 ## 本项目中Task定义和Workflow定义是分开的，所以需要先将Task目录打包成zip文件
 # zip -r tasks.zip tasks/
+
 ## 运行分析任务
 # widdler run -t hg19_wgs_one gtx_one.wdl -d tasks.zip gtx_one.inputs.json
 No errors found in gtx_one.wdl
@@ -174,7 +175,7 @@ bcs_workflow_tag:hg19_wgs_one
 # widdler stat 639b0f8a-f504-4768-b1ce-69f5fecd59c3
 
 ## 统计分析成本（账单信息滞后，需要一天后查看）
-# widdler billing 
+# widdler billing 639b0f8a-f504-4768-b1ce-69f5fecd59c3
 </code></pre>
 
 ### 5. 环境清理
