@@ -227,7 +227,7 @@ runtime {
     }    
 </code></pre>
 
-通过在分析作业运行环境中请求加载ISV（GTX）的算法，我们支持用户在阿里云上，使用GTX的FPGA加速应用，并且支持软件原有的所有命令和使用方案。您也可以按照自己的需要，来进行Tasks中工具的定制。
+通过在分析作业运行环境中请求加载ISV（GTX）的算法，我们支持用户在阿里云上，使用GTX的FPGA加速应用，并且支持软件原有的所有命令和参数。您也可以按照自己的需要，来进行Tasks中工具的定制。
 
 #### 使用批量计算服务
 除使用用户自己的Cromwell Server进行任务投递和管理外，您也可以直接使用阿里云**批量计算**服务处理GTX-FPGA的分析任务。
@@ -241,8 +241,8 @@ true: 精准模式，保持与GATK分析结果的一致性
 
 false: 加速模式，可以30分钟完成30x全基因数据分析。
 
-对于GTX-FPGA，我们使用30x NA12878标准品的数据进行准确性和分析速度的测试。数据下载链接（ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/140127_D00360_0011_AHGV6ADXX/Project_RM8398/ 
-）。分析任务中，GATK采用32核64G的机器的CPU机器（ECS.C5.8xlarge），GTX-FPGA采用阿里云f3实例(ecs.f3-c16f1.16xlarge)。gtx-fpga的最后结果与gatk 3.8 和 gatk 4.0进行一致性的比较。
+对于GTX-FPGA，我们使用30x NA12878标准品的数据进行准确性和分析速度的测试。数据[下载链接](ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/140127_D00360_0011_AHGV6ADXX/Project_RM8398/ 
+)。分析任务中，GATK采用32核64G的机器的CPU机器（ECS.C5.8xlarge），GTX-FPGA采用阿里云f3实例(ecs.f3-c16f1.16xlarge)。gtx-fpga的最后结果与gatk 3.8 和 gatk 4.0进行一致性的比较。
 
 #### 准确性
 ![png](https://img.alicdn.com/tfs/TB1dbWlukY2gK0jSZFgXXc5OFXa-2136-806.png)
