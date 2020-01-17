@@ -181,15 +181,74 @@ bcs_workflow_tag:hg19_wgs_one
 ### 5. 环境清理
 在完成所有的测试工作后，如果您不要再保留环境，可以选择在[ECS控制台](https://ecs.console.aliyun.com/)释放该机器。并且在[OSS的控制台](https://oss.console.aliyun.com/)，删除创建的Bucket。这样该项目后续将不会再产生额外的费用。
 
-## 更多分析
+## 更多分析方式
 #### 外显子数据数据分析
+项目演示流程也同时支持外显子数据分析，你可以在**gtx_one.inputs.json**中任意位置，添加“gtx.intervals”的输入来指定目标区域文件。
+<pre><code>
+  "gtx.intervals": "oss://gtx-fpga/test-data/xxx.bed",
+</code></pre>
 
 #### 用户自定义分析
+##### 使用自定义输入
+如果需要使用该流程分析用户自己的数据。只需要将测序文件通过OSSUtil上传到OSS上。再将**gtx_one.inputs.json**中的fastq1和fastq2输入，替换成用户自己的OSS文件地址。然后再按照同样的方法提交任务即可。
+<pre><code>
+    "gtx_one.fastq1": "oss://your/sequencing/data/read1.fastq.gz",
+    "gtx_one.fastq2": "oss://your/sequencing/data/read2.fastq.gz",
+</code></pre>
+
+如果您需要使用hg19或者hg38以外的参考基因组，或者是处理非人的其他物种数据。则需要使用“gtx_index.wdl”流程来构建索引。并且用于替换掉**gtx_one.inputs.json**的genome_indexes文件。
+<pre><code>
+    "gtx_one.genome_indexes": [
+        "oss://gtx-fpga/species.fasta",
+        "oss://gtx-fpga/species.fasta.amb",
+        "oss://gtx-fpga/species.fasta.ann",
+        "oss://gtx-fpga/species.fasta.bwt",
+        "oss://gtx-fpga/species.fasta.fai",
+        "oss://gtx-fpga/species.fasta.pac",
+        "oss://gtx-fpga/species.fasta.sa",
+        "oss://gtx-fpga/species.fasta.tbl"
+    ],
+</code></pre>
+
+##### 使用自定义流程
+对于熟悉WDL的高级用户，可以任意修改和组合项目中的演示流程。例如，您可以使用GTX-FPGA中提供的align步骤进行对比，其他部分由自定义的软件或者流程来实现。项目演示流程中的**“gtx_index_align_vc”**中，通过**import "tasks/align.wdl"** 来调用gtx的align功能，你可以查看这一部分是如何实现的。
+
+除此之外，演示流程定义的GTX工具（Tasks中文件），具体支持的软件参数也可以修改。阿里云对于GTX产品的支持，是通过WDL中runtime的声明来实现的。
+
+<pre><code>
+runtime {
+        # data volume
+        systemDisk: "cloud_ssd ${sys_disk_size}"
+        dataDisk: "cloud_ssd ${data_disk_size} /ssd-cache/"
+
+        # software dependencies, please do not change
+        cluster: "OnDemand ecs.f3-c16f1.16xlarge img-gtx-fpga"
+        isv: "GTX"
+    }    
+</code></pre>
+
+通过在分析作业运行环境中请求加载ISV（GTX）的算法，我们支持用户在阿里云上，使用GTX的FPGA加速应用，并且支持软件原有的所有命令和使用方案。您也可以按照自己的需要，来进行Tasks中工具的定制。
 
 #### 使用批量计算服务
+除使用用户自己的Cromwell Server进行任务投递和管理外，您也可以直接使用阿里云**批量计算**服务处理GTX-FPGA的分析任务。
 
 ## GTX-WGS产品评估报告
-#### 性能
+GTX-FPGA支持两种运行模式，可以兼顾准确性和加速比的考虑。在加速模式下（GTX ACCelerate），数据分析速度最快。在精准模式下，与GATK软件分析结果的一直性更高。在**"gtx-one"**的演示流程中，我们提供了可选参数。
+<pre><code>
+ "gtx_one.is_identify_with_bwa": false,
+</code></pre>
+true: 精准模式，保持与GATK分析结果的一致性
+false: 加速模式，可以30分钟完成30x全基因数据分析。
+
+对于GTX-FPGA，我们使用30x NA12878标准品的数据进行准确性和分析速度的测试。数据下载链接（ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/140127_D00360_0011_AHGV6ADXX/Project_RM8398/ 
+）。分析任务中，GATK采用32核64G的机器的CPU机器（ECS.C5.8xlarge），GTX-FPGA采用阿里云f3实例(ecs.f3-c16f1.16xlarge)。gtx-fpga的最后结果与gatk 3.8 和 gatk 4.0进行一致性的比较。
+
 #### 准确性
-#### 通量
+![png](https://img.alicdn.com/tfs/TB1dbWlukY2gK0jSZFgXXc5OFXa-2136-806.png)
+
+
+
+
+#### 性能
+
 
