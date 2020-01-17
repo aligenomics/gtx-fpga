@@ -42,7 +42,7 @@ VPC：	vpc-2ze3***************
 
 > 注意：您可以选择**按量付费**模式，在测试结束后，即可关闭机器，不再产生费用。镜像选择**镜像市场**, 机器网络请选择**分配公网IPv4地址**，带宽选择按流量付费。
 
-![png](https://img.alicdn.com/tfs/TB1fcYdtAT2gK0jSZFkXXcIQFXa-2878-1412.png)
+![png](https://img.alicdn.com/tfs/TB1UYx7ulr0gK0jSZFnXXbRRXXa-2818-1372.png)
 
 ### 2. 登录Cromwell Server，完成初始化设置并且启动服务
 ##### 使用步骤1中创建的ECS服务器IP地址，用户名和密码，登录机器。
