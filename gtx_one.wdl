@@ -12,6 +12,8 @@ workflow gtx_one {
         # pre-built genome index files
         Array[File?] genome_indexes
 
+        Array[File?] known_sites
+
         # genomic intervals
         File? intervals
 
@@ -23,6 +25,7 @@ workflow gtx_one {
         Boolean is_identify_with_bwa = false
         Boolean is_output_bam = false
         Boolean is_gvcf = false
+        Boolean is_bqsr = false
 
         Int? score_for_match
         Int? penalty_for_mismatch
@@ -41,12 +44,14 @@ workflow gtx_one {
             fastq1 = fastq1,
             fastq2 = fastq2,
             genome_indexes = genome_indexes,
+            known_sites = known_sites,
             intervals = intervals,
             reads_group = reads_group,
             sample_id = sample_id,
             is_identify_with_bwa = is_identify_with_bwa,
             is_output_bam = is_output_bam,
             is_gvcf = is_gvcf,
+            is_bqsr = is_bqsr,
             score_for_match = score_for_match,
             gap_extension_penalty = gap_extension_penalty,
             gap_open_penalty = gap_open_penalty,

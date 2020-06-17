@@ -26,6 +26,7 @@ task wgs {
 
         # pre-built genome index files
         Array[File?] genome_indexes
+        Array[File?] known_sites
 
         # genomic intervals
         File? intervals
@@ -38,6 +39,8 @@ task wgs {
         Boolean is_identify_with_bwa = false
         Boolean is_output_bam = false
         Boolean is_gvcf = false
+        Boolean is_bqsr = false
+
 
         Int? score_for_match
         Int? penalty_for_mismatch
@@ -54,8 +57,12 @@ task wgs {
     String intervals_option = if defined(intervals) then "-L " + intervals else ""
     String bam = sample_id + ".bam"
     String bam_idx = sample_id + ".bam.bai"
+    String bqsr_output = sample_id + ".bqsr.output.txt"
     String bam_option_str = if is_output_bam then "-b " + bam else ""
     String vcf = if is_gvcf then sample_id + ".g.vcf" else sample_id + ".vcf"
+    String bqsr_option_str = if is_bqsr then "--bqsr " + bqsr_output else ""
+    Array[File] sites = if is_bqsr then select_all(known_sites) else []
+    String prefix = if is_bqsr then "--known-sites" else ""
 
     command {
         gtx wgs \
@@ -63,6 +70,7 @@ task wgs {
         -o ${vcf} \
         ${intervals_option} \
         ${true="--bwa" false="" is_identify_with_bwa} \
+        ${bqsr_option_str} \
         ${"-A " + score_for_match } \
         ${"-B " + penalty_for_mismatch } \
         ${"-O " + gap_open_penalty } \
@@ -70,6 +78,7 @@ task wgs {
         ${"-t " + threads } \
         ${bam_option_str} \
         ${true="-g" false="" is_gvcf} \
+        ${prefix} ~{sep=" --known-sites " sites} \
         ${genome_indexes[0]} \
         ${fastq1} ${fastq2}
     }
